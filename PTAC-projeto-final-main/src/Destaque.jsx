@@ -1,7 +1,33 @@
-export default function Destaque(){
-  return(
-    <div class="destaque">
-      <h1>Destaque</h1>
-      <div class="video">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+import React, { useState, useEffect } from 'react';
+export default function Destaque (){ 
+  
+const DetalhesVideo = (props) => {
+  const [video, setVideo] = useState({});
+  const [letras, setLetras] = useState('');
+
+  useEffect(() => {
+    const storedVideos = JSON.parse(localStorage.getItem('videos'));
+    const videoId = props.match.params.id;
+    const selectedVideo = storedVideos.find((v) => v.id === videoId);
+    setVideo(selectedVideo);
+    setLetras(selectedVideo.letras);
+  }, [props.match.params.id]);
+
+  return (
+    <div>
+      <h2>{video.name}</h2>
+      <iframe
+        width="560"
+        height="315"
+        src={'https://www.youtube.com/embed/' + video.url.slice(17)}
+        title={video.name}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+      <div>{letras}</div>
+    </div>
+    };
+}};
+
+export default DetalhesVideo;
