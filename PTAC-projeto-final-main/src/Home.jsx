@@ -9,7 +9,7 @@ return(
   <a href="/registro" class="nav-btn">Novo vídeo</a>
 </div>
   
-    <div>
+    <section>
       {videos.map((video, index) => {
         return (
           <div key={index}>
@@ -26,7 +26,7 @@ return(
           </div>
         );
       })}
-    </div>
+    </section>
   );
 };
 
