@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
 export default function Destaque (){ 
-  
-const DetalhesVideo = (props) => {
-  const [video, setVideo] = useState({});
-  const [letras, setLetras] = useState('');
 
-  useEffect(() => {
-    const storedVideos = JSON.parse(localStorage.getItem('videos'));
-    const videoId = props.match.params.id;
-    const selectedVideo = storedVideos.find((v) => v.id === videoId);
-    setVideo(selectedVideo);
-    setLetras(selectedVideo.letras);
-  }, [props.match.params.id]);
+  const destaque = (props) => {
 
+    const [video, setVideo] = useState({});
+    const [letras, setLetras] = useState('');
+
+    useEffect(() => {
+      const storedVideos = JSON.parse(localStorage.getItem('videos'));
+      const videoId = props.match.params.id;
+      const selectedVideo = storedVideos.find((v) => v.id === videoId);
+      setVideo(selectedVideo);
+      setLetras(selectedVideo.letras);
+    }, [props.match.params.id]);
+    
   return (
     <div>
       <h2>{video.name}</h2>
@@ -30,4 +30,4 @@ const DetalhesVideo = (props) => {
     };
 }};
 
-export default DetalhesVideo;
+export default destaque;
