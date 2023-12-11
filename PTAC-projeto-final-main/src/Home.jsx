@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LimparLocalStorage from './LimparLocalStorage.jsx';
-import VideoItem from './VideoItem'; 
+import VideoItem from './VideoDetail.jsx'; 
+import "../public/style.css";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
@@ -9,7 +10,14 @@ const Home = () => {
     const storedVideos = JSON.parse(localStorage.getItem('videos')) || [];
     setVideos(storedVideos);
   }, []);
-
+  
+  //https://www.youtube.com/watch?v=EGa5h0OStUY
+  //Bon Jovi, Nirvana, Guns N Roses, Aerosmith, Kansas, The Beatles 🔥 Classic Rock Songs 70s 80s 90s
+  //Classic Rock Songs
+  //https://www.youtube.com/watch?v=C44_HrseDSs
+  //God of War Ragnarök: Valhalla - Reveal Trailer | PS5 & PS4 Games
+  //Playstation
+  
   return (
     <div className="content">
       <h2>Vídeos Registrados</h2>
@@ -18,7 +26,7 @@ const Home = () => {
           videos.map((video, index) => (
             <div key={index} className="video">
               <h3>{video.nome}</h3>
-
+              <Link to="./VideoDetail"> </Link>  
               <iframe
                 width="100%"
                 height="200"
