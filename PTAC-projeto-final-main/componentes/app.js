@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const ListaVideos = () => {
-  const [videos, setVideos] = useState([]);
+  const 
+    [videos, setVideos] = useState([]);
 
   useEffect(() => {
     const storedVideos = localStorage.getItem('videos');

@@ -1,33 +1,39 @@
-export default function Destaque (){ 
+import React, { useEffect, useState } from 'react';
 
-  const destaque = (props) => {
+const Destaque = () => {
+  const [latestVideos, setLatestVideos] = useState([]);
 
-    const [video, setVideo] = useState({});
-    const [letras, setLetras] = useState('');
+  useEffect(() => {
+    const storedVideos = JSON.parse(localStorage.getItem('videos')) || [];
+    const latestFourVideos = storedVideos.slice(-4).reverse();
+    setLatestVideos(latestFourVideos);
+  }, []);
 
-    useEffect(() => {
-      const storedVideos = JSON.parse(localStorage.getItem('videos'));
-      const videoId = props.match.params.id;
-      const selectedVideo = storedVideos.find((v) => v.id === videoId);
-      setVideo(selectedVideo);
-      setLetras(selectedVideo.letras);
-    }, [props.match.params.id]);
-    
   return (
-    <div>
-      <h2>{video.name}</h2>
-      <iframe
-        width="560"
-        height="315"
-        src={'https://www.youtube.com/embed/' + video.url.slice(17)}
-        title={video.name}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-      <div>{letras}</div>
+    <div className="content destaque">
+      <h2>Últimos 4 Vídeos Registrados</h2>
+      <div className="video-container">
+        {latestVideos.length > 0 ? (
+          latestVideos.map((video, index) => (
+            <div key={index} className="video">
+              <h3>{video.nome}</h3>
+              <iframe
+                width="100%"
+                height="200"
+                src={`https://www.youtube.com/embed/${video.url.slice(17)}`}
+                title={video.nome}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          ))
+        ) : (
+          <p>Nenhum vídeo registrado ainda.</p>
+        )}
+      </div>
     </div>
-    };
-}};
+  );
+};
 
-export default destaque;
+export default Destaque;

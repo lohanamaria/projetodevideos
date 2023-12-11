@@ -1,34 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import LimparLocalStorage from './LimparLocalStorage.jsx';
+import VideoItem from './VideoItem'; 
 
-export default function Home(){
-return(
-<div class="navbar" id="navbar">
-  <a href="/home" class="nav-btn" id="nav-btn">Home</a>
-  <a href="/destaque" class="nav-btn"> Em destaque</a>
-  <a href="/registro" class="nav-btn">Novo vídeo</a>
-</div>
-  
-    <section>
-      {videos.map((video, index) => {
-        return (
-          <div key={index}>
-            <h3>{video.nome}</h3>
-            <iframe
-              width="560"
-              height="315"
-              src={'https://www.youtube.com/embed/' + video.url.slice(17)}
-              title={video.nome}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        );
-      })}
-    </section>
+const Home = () => {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const storedVideos = JSON.parse(localStorage.getItem('videos')) || [];
+    setVideos(storedVideos);
+  }, []);
+
+  return (
+    <div className="content">
+      <h2>Vídeos Registrados</h2>
+      <div className="video-container">
+        {videos.length > 0 ? (
+          videos.map((video, index) => (
+            <div key={index} className="video">
+              <h3>{video.nome}</h3>
+
+              <iframe
+                width="100%"
+                height="200"
+                src={"https://www.youtube.com/embed/" + video.url.slice(17)}
+                title={video.nome}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          ))
+        ) : (
+          <p>Nenhum vídeo registrado ainda.</p>
+        )}
+      </div>
+    </div>
   );
 };
 
 export default Home;
+
   
